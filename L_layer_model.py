@@ -13,6 +13,7 @@ def sigmoid(x):
 
     Return:
     s -- sigmoid(x)
+    cache --
     """
     s = 1 / (1 + np.exp(-x))
     return s
@@ -28,15 +29,42 @@ def relu(x):
 
     Return:
     s -- relu(x)
+    cache --
     """
     s = np.maximum(0, x)
     return s
 
 
 # sigmoid backward
+def sigmoid_backward(dA, activation_cache):
+    """
+    Implements the backward propagation for SIGMOID unit.
+
+    Arguments:
+    dA -- post-activation gradient for current layer.
+    activation_cache -- tuple of values we store for computing backward propagation efficiently
+
+    Return:
+    dZ -- derivative of Z
+    """
+    dZ = np.dot(dA, activation_cache)
+    return dZ
 
 
 # relu backward
+def relu_backward(dA, activation_cache):
+    """
+    Implements the backward propagation for RELU unit.
+
+    Arguments:
+    dA -- post-activation gradient for current layer.
+    activation_cache -- tuple of values we store for computing backward propagation efficiently
+
+    Return:
+    dZ -- derivative of Z
+    """
+
+    return dZ
 
 
 # Initializes all W and b values for set.
@@ -324,13 +352,6 @@ def L_layer_model(X, Y, layer_dims, learning_rate=0.0075, num_iterations=3000, p
             print("Cost after iteration %i: %f" % (i, cost))
         if print_cost and i % 100 == 0:
             costs.append(cost)
-
-    # plot the cost
-    plt.plot(np.squeeze(costs))
-    plt.ylabel('cost')
-    plt.xlabel('iterations (per tens)')
-    plt.title("Learning rate =" + str(learning_rate))
-    plt.show()
 
     return parameters
 
