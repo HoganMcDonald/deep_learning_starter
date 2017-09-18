@@ -1,6 +1,12 @@
 # required libraries
 
 import numpy as np
+# from dnn_utils import sigmoid, sigmoid_backward, relu, relu_backward
+
+#     sigmoid_backward: Implements the backward propagation for SIGMOID unit. You can call it as follows:
+# dZ = sigmoid_backward(dA, activation_cache)
+#     relu_backward: Implements the backward propagation for RELU unit. You can call it as follows:
+# dZ = relu_backward(dA, activation_cache)
 
 
 ############################ 2 layer network ############################
@@ -262,24 +268,18 @@ def L_model_forward(X, parameters):
     # Implement [LINEAR -> RELU]*(L-1). Add "cache" to the "caches" list.
     for l in range(1, L):
         A_prev = A
-        ### START CODE HERE ### (≈ 2 lines of code)
         A, cache = linear_activation_forward(A_prev,
                                              parameters['W' + str(l)],
                                              parameters['b' + str(l)],
                                              activation='relu')
         caches.append(cache)
 
-        ### END CODE HERE ###
-
     # Implement LINEAR -> SIGMOID. Add "cache" to the "caches" list.
-    ### START CODE HERE ### (≈ 2 lines of code)
     AL, cache = linear_activation_forward(A,
                                           parameters['W' + str(L)],
                                           parameters['b' + str(L)],
                                           activation='sigmoid')
     caches.append(cache)
-
-    ### END CODE HERE ###
 
     assert (AL.shape == (1, X.shape[1]))
 
